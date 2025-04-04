@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: ./proxy/
+      dockerfile: Dockerfile
+    image: reverse_proxy:1.0
+    container_name: reverse_proxy_container
+    networks:
+      - reverse_proxy_test
+    ports:
+      - "80:80"
+    depends_on:
+      - fastapi
+    
+  fastapi:
+    build: 
+      context: ./app/
+      dockerfile: Dockerfile
+    image: fast_api_app:1.0
+    container_name: fastapi_app_test
+    networks:
+      - reverse_proxy_test
+    volumes:
+      - ./app_data:/app/data  # Fix volume mounting to avoid overwriting the app
+
+networks:
+  reverse_proxy_test:
+    driver: bridge
