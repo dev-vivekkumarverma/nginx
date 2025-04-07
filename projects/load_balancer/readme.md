@@ -2,6 +2,8 @@
 
 # 🔁 FastAPI Load Balanced Microservice with NGINX
 
+![load_balancer](../../imgResource/loadbalancer.png)
+
 This project demonstrates a scalable microservices setup where **FastAPI backend servers** are load balanced using **NGINX**. It utilizes **Docker** and **Docker Compose** to orchestrate multiple backend instances and route traffic efficiently.
 
 ---
@@ -26,6 +28,29 @@ This project demonstrates a scalable microservices setup where **FastAPI backend
 - 🐳 **Dockerized environment** ensures quick setup, isolation, and portability.
 - 🔍 **Request introspection** helps debug headers and routing in microservices or proxy setups.
 
+---
+## Architecture Diagram
+
+![Architecture_diagram of project](../../imgResource/load_balancer_architecture.png)
+
+---
+
+## 🧩 Folder Structure
+
+```
+.
+├── backend/
+│   ├── main.py
+│   ├── templates/
+│   │   └── index.html
+│   ├── requirements.txt
+│   └── Dockerfile
+├── load_balancer/
+│   ├── nginx.conf
+│   └── Dockerfile
+├── docker-compose.yml
+└── README.md
+```
 ---
 
 ## 📦 Tech Stack
@@ -88,25 +113,6 @@ docker compose down
   ```bash
   docker compose restart <service_name>
   ```
-
----
-
-## 🧩 Folder Structure
-
-```
-.
-├── backend/
-│   ├── main.py
-│   ├── templates/
-│   │   └── index.html
-│   ├── requirements.txt
-│   └── Dockerfile
-├── load_balancer/
-│   ├── nginx.conf
-│   └── Dockerfile
-├── docker-compose.yml
-└── README.md
-```
 
 ---
 
