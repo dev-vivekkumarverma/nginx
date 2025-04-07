@@ -1,5 +1,3 @@
--
-
 # 🔁 FastAPI Load Balanced Microservice with NGINX
 
 ![load_balancer](../../imgResource/loadbalancer.png)
