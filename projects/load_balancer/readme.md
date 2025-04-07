@@ -24,7 +24,14 @@ This project demonstrates a scalable microservices setup where **FastAPI backend
 ## 💡 Why This Is Important
 
 - 🔀 **Load balancing** improves scalability and fault tolerance by distributing requests.
-- 🧠 **Sticky sessions** (via IP hashing) ensure consistency — users from the same IP go to the same backend.
+- 🧠 **Routing mechanisms** :
+    - there are many more like:
+      - `Sticky sessions`-(via IP hashing) ensure consistency — users from the same IP go to the same backend
+      - `round robin`
+      - `least connection`
+      - `weighted route` etc. 
+  - you can uncomment approprite section in nginx.conf
+- **SSL-layer**: can connect using `https` for `secure communication`.
 - 🐳 **Dockerized environment** ensures quick setup, isolation, and portability.
 - 🔍 **Request introspection** helps debug headers and routing in microservices or proxy setups.
 
@@ -46,6 +53,9 @@ This project demonstrates a scalable microservices setup where **FastAPI backend
 │   ├── requirements.txt
 │   └── Dockerfile
 ├── load_balancer/
+|   ├── certificates/
+|   |    └── server.cert
+|   |    └── server.key
 │   ├── nginx.conf
 │   └── Dockerfile
 ├── docker-compose.yml
@@ -69,13 +79,24 @@ This project demonstrates a scalable microservices setup where **FastAPI backend
    git clone https://github.com/dev-vivekkumarverma/nginx.git
    cd nginx/projects/load_balancer
    ```
+2. **generate ssl-certificates**
+   ```bash
+   cd load_balancer
+   mkdir certificates
+   cd certificates
 
-2. **Build and Start All Containers**
+   openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout server.key -out server.crt
+
+   cd ../..
+   ```
+
+
+3. **Build and Start All Containers**
    ```bash
    docker compose up --build
    ```
 
-3. **Access the App**
+4. **Access the App**
    Open your browser and go to:  
    [http://localhost](http://localhost)
 
