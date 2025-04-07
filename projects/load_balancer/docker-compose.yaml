@@ -1,0 +1,38 @@
+# version: '3.8'
+
+services:
+  backend_server:
+    build: 
+      context: backend/
+      dockerfile: Dockerfile
+    # container_name: fastapi
+    image: fastapi_test:1.0
+    env_file:
+      - backend/.env
+    networks:
+      - load_balancer_network
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+        window: 30s
+      replicas: 4
+    # volumes:
+    #   - ./app_data:/app:rw
+  load_balancer:
+    build:
+      context: load_balancer/
+      dockerfile: Dockerfile
+    container_name: load_balancer
+    image: load_balancer:1.0
+    ports:
+      - "80:80"
+    depends_on:
+      - backend_server
+    networks:
+      - load_balancer_network
+  
+
+networks:
+  load_balancer_network:
+    driver: bridge
